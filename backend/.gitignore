@@ -1,0 +1,52 @@
+# Node.js dependencies
+node_modules/
+
+# Logs and error reports
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Build and cache directories
+.cache/
+dist/
+build/
+tmp/
+out/
+coverage/
+
+# Local environment configuration
+.env
+.env.local
+.env.*.local
+
+# Editor and OS-specific files
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Test files and reports
+.jest/
+*.test-results.json
+
+# CI/CD and runtime files
+*.pid
+*.pid.lock
+
+# Temporary and backup files
+*.tmp
+*.bak
+*.tsbuildinfo
+*.sqlite
+*.sqlite3
+
+# Package manager lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
