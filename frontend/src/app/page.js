@@ -1,15 +1,81 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import Link from 'next/link';
+import { useState, useEffect, useRef } from "react";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!menuRef.current) return;
+
+      const menu = menuRef.current;
+      const scrollTop = window.scrollY;
+      const homeHeight = window.innerHeight;
+
+      if (scrollTop <= homeHeight && !isOpen) {
+        menu.style.pointerEvents = 'auto';
+      } else if (scrollTop <= homeHeight && isOpen) {
+        menu.style.pointerEvents = 'auto';
+      } else {
+        setIsOpen(!isOpen)
+        menu.style.pointerEvents = 'none';
+      }
+    };
+
+
+    window.addEventListener("scroll", handleScroll);
+  }, []);
+
+  const [author, setAuthor] = useState("");
+  const [authorsSuggestions, setAuthorsSuggestions] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchAuthors = async (query) => {
+    if (!query) {
+      setAuthorsSuggestions([]);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/authors?query=${query}`);
+      const data = await response.json();
+      setAuthorsSuggestions(data);
+    } catch (error) {
+      console.error("Error fetching authors:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      if (author) {
+        fetchAuthors(author);
+      }
+    }, 500);
+
+    return () => clearTimeout(debounceTimer);
+  }, [author]);
+
+  const handleInputChange = (event, type) => {
+    const query = event.target.value;
+    if (type === "author") {
+      setAuthor(query);
+    }
+  };
+
   return (
     <div className="h-[100%]">
-      <main className="text-[3vh]">
+      <main >
           <div
+            id="menu"
+            ref={menuRef}
             className={`ml-12 bg-bottom bg-cover bg-no-repeat w-[17vw] fixed flex justify-center items-center transition-all duration-300 z-10 cursor-pointer ${
             isOpen ? "h-[95vh]" : "h-[30vh] hover:h-[33vh]"
           }`}
@@ -20,7 +86,7 @@ export default function Home() {
           >
             <div
               className={`max-w-[13vw] absolute text-center mb-[20vh] transition-all duration-250 ${
-                isOpen ? "opacity-100" : "opacity-0"
+                isOpen ? "opacity-100 block" : "opacity-0 hidden"
               }`}
               style={{ overflow: "hidden" }}
               onClick={(e) => {
@@ -68,11 +134,8 @@ export default function Home() {
             />
             <h1 className="text-[5vw]">BookShelffle</h1>
           </div>
-          <div>
+          <div className="text-[1.8vw]">
             <p className="font-light">Stuck on what to read next?</p>
-            <p>
-              Yeah, we've been there... But don't worry, <strong>BookShelffle got you</strong>!
-            </p>
             <p className="pt-[5vh]">
               Let us randomly pick a book from <strong>your own collection</strong>, from <strong>global reads</strong>, or <strong>mix it up</strong> for
               the ultimate surprise.
@@ -83,7 +146,7 @@ export default function Home() {
           </div>
           <div className="flex gap-10 justify-center flex-wrap text-black">
             <Link href="/my-bookshelf">
-              <div className="py-5 px-4 bg-yellow-400 hover:bg-[#FFE082] rounded-2xl flex gap-3 justify-center">
+              <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#FFE082] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d5e]">
                 <Image
                   className="max-w-[2vw] max-h-[2vw]"
                   src="/3.png"
@@ -95,7 +158,7 @@ export default function Home() {
                 YOUR BOOKSHELF
               </div>
             </Link>
-            <div className="py-5 px-4 bg-yellow-400 hover:bg-[#FFE082] rounded-2xl flex gap-3 justify-center">
+            <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#FFE082] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d5e]">
               <Image
                 className="max-w-[2vw] max-h-[2vw]"
                 src="/4.png"
@@ -107,7 +170,7 @@ export default function Home() {
               GLOBAL READS
             </div>
             <Link href="/my-bookshelf">
-              <div className="py-5 px-4 bg-yellow-400 hover:bg-[#FFE082] rounded-2xl flex gap-3 justify-center">
+              <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#FFE082] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d5e]">
                 <Image
                   className="max-w-[2vw] max-h-[2vw]"
                   src="/5.png"
@@ -125,25 +188,62 @@ export default function Home() {
           id="shuffle"
           className="pl-[25vw] pr-[5vw] flex flex-col items-center place-self-center justify-evenly content-center text-center h-[100vh] w-[100vw]"
         >
-          <div className="w-[100%]">
-            <h1>Shuffle</h1>
+          <div className="w-[100%] text-[1vw]">
+            <h1 className="text-[2vw] py-[2vh] font-bold">Shuffle</h1>
             <p>Looking for a book on a specific subject, author, or genre? Select it and shuffle.</p>
             <p>Or simply shuffle if you're not sure where to start.</p>
-            <div className="flex gap-2">
-              <div className="w-[15vw] h-[35vh] bg-gray-200 rounded-xl overflow-hidden">
-                <div className="w-[100%] h-[15%] bg-gray-100"></div>
+              <div className="flex gap-2 pt-[4vh]">
+                <div className="w-[15vw] h-[35vh] bg-gray-100 rounded-xl overflow-hidden scrollbar overflow-y-scroll scroll-smooth">
+                  <input
+                    className="w-[100%] h-[15%] bg-gray-200 roundex-xl outline-0 p-[1vw]"
+                    type="text"
+                    placeholder="Author"
+                    value={author}
+                    onChange={(e) => handleInputChange(e, "author")}
+                  />
+                {loading ? (
+                  <div>Loading...</div>
+                ) : (
+                  author && (
+                    <div className="px-[1vw]">
+                      {authorsSuggestions.length > 0 ? (
+                        authorsSuggestions.map((author, index) => (
+                          <label key={index} className="flex justify-between">
+                            {author || "Unknown"}
+                            <input
+                              className="w-[2vh] h-[2vh] text-yellow-600"
+                              type="checkbox"
+                            />
+                          </label>
+                        ))
+                      ) : (
+                        <div>No authors found</div>
+                      )}
+                    </div>
+                  )
+                )}
               </div>
-              <div className="w-[15vw] h-[35vh] bg-gray-200 rounded-xl overflow-hidden">
-                <div className="w-[100%] h-[15%] bg-gray-100"></div>
+              <div className="w-[15vw] h-[35vh] bg-gray-100 rounded-xl overflow-hidden scrollbar overflow-y-scroll scroll-smooth">
+                <div className="w-[100%] h-[15%] bg-gray-200 roundex-xl px-[1vw] flex justify-between items-center">
+                  <input
+                    className="w-[80%] bg-transparent outline-0 flex"
+                    type="text"
+                    placeholder="Keyword"
+                  />
+                  <p className="w-[1vw] h-[1vw] bg-white shadow-inner rounded-full flex items-center justify-center">+</p>
+                  </div>
               </div>
-              <div className="w-[15vw] h-[35vh] bg-gray-200 rounded-xl overflow-hidden">
-                <div className="w-[100%] h-[15%] bg-gray-100"></div>
+              <div className="w-[15vw] h-[35vh] bg-gray-100 rounded-xl overflow-hidden">
+                <div className="w-[100%] h-[15%] bg-gray-200">
+                </div>
               </div>
-              <div className="w-[15vw] h-[35vh] bg-gray-200 rounded-xl overflow-hidden">
-                <div className="w-[100%] h-[15%] bg-gray-100"></div>
+              <div className="w-[15vw] h-[35vh] bg-gray-100 rounded-xl overflow-hidden">
+                <div className="w-[100%] h-[15%] bg-gray-200">
+                </div>
               </div>
-              <div className="w-[15vw] h-[35vh] bg-gray-200 rounded-xl overflow-hidden">
-                <div className="w-[100%] h-[15%] bg-gray-100"></div>
+              <div className="w-[15vw] h-[35vh] bg-gray-100 rounded-xl overflow-hidden">
+                <div className="w-[100%] h-[15%] bg-gray-200">
+                </div>
               </div>
             </div>
             <div className="w-[100%] bg-gray-200 my-[2%] rounded-xl">
