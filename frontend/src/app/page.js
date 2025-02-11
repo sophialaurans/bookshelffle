@@ -19,6 +19,7 @@ export default function Home() {
   const [loadingAuthor, setLoadingAuthor] = useState(false);
   const [loadingCategory, setLoadingCategory] = useState(false);
   const [result, setResult] = useState([]);
+  const [resultError, setResultError] = useState("");
   const user = null;
 
   // Handle menu interaction and scroll behavior
@@ -81,6 +82,7 @@ export default function Home() {
   };
 
   const fetchBooks = async () => {
+    setLoading(true)
     const authorQuery = author ? category ? `inauthor:${author}+` : `inauthor:${author}` : 'a';
     const categoryQuery = category ? `subject:${category.replace(' ', '+')}` : '';
 
@@ -115,6 +117,9 @@ export default function Home() {
               categories: book.volumeInfo?.categories || "N/A",
               averageRating: book.volumeInfo?.averageRating || "N/A",
               summary: book.volumeInfo?.description || "Unavailable",
+              thumbnail: book.volumeInfo?.imageLinks ? book.volumeInfo?.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail : '/cover.png',
+              rating: book.volumeInfo?.averageRating || "?",
+              ratingsCount: book.volumeInfo?.ratingsCount || "0",
             }))
           );
         }
@@ -152,13 +157,18 @@ export default function Home() {
         const randomBook = filteredBooks[randomIndex];
         console.log("Random book:", randomBook);
         setResult(randomBook);
+        setLoading(false);
         return randomBook;
       } else {
         console.warn("No book was found.");
+        setLoading(false);
+        setResultError("No book was found.");
         return null;
       }
     } catch (error) {
-      console.error("Error fetching books:", error);
+      console.error("Error fetching books", error);
+      setLoading(false);
+      setResultError("Error fetching books", error);
       return null;
     }
   };
@@ -179,8 +189,8 @@ export default function Home() {
           <div
             id="menu"
             ref={menuRef}
-            className={`ml-12 bg-bottom bg-[length:100%_150%] bg-no-repeat w-[17vw] fixed flex justify-center items-center transition-all duration-300 z-10 cursor-pointer ${
-            isOpen ? "h-[95vh]" : "h-[30vh] hover:h-[33vh]"
+            className={`ml-12 bg-bottom bg-no-repeat w-[18vw] fixed flex justify-center items-center transition-all duration-300 z-10 cursor-pointer ${
+            isOpen ? "min-h-[95vh] bg-cover" : "h-[30vh] bg-[100%-auto] hover:h-[33vh]"
           }`}
             style={{
               backgroundImage: "url('/bookmark.png')",
@@ -221,93 +231,96 @@ export default function Home() {
           </div>
         <section
           id="home" 
-          className="h-[100vh] py-[10vh] px-[22vw] flex flex-col items-center place-self-center justify-evenly content-center text-center bg-[length:100%_100%]"
+          className="h-[100vh] pb-[8vh] pt-[4vh] px-[15vw] flex flex-col items-center place-self-center justify-evenly content-center text-center bg-[length:100%_100%]"
           style={{
             backgroundImage: "url('/bg.png')",
           }}
           >
-          <div className="flex flex-col items-center">
-            <Image
-              className="w-[7vw] "
-              src="/icon.png"
-              alt="Page Icon"
-              width={1000}
-              height={1000}
-              priority
-            />
-            <h1 className="text-[3vw]">BookShelffle</h1>
-          </div>
-          <div className="text-[1.8vw]">
-            <p className="font-light">Stuck on what to read next?</p>
-            <p className="pt-[5vh]">
-              Let us randomly pick a book from
-              <strong className="bg-[length:100%_100%]"
-                style={{
-                  backgroundImage: "url('/blue-mark.png')",
-                }}
-                >
-                  &nbsp;your own collection
-              </strong>
-              , from
-              <strong className="text-nowrap bg-[length:100%_100%]"
-                style={{
-                  backgroundImage: "url('/green-mark.png')",
-                }}
-                >
-                  &nbsp;global reads
-                </strong>
-                , or
-                <strong className="text-nowrap bg-[length:100%_100%]"
-                style={{
-                  backgroundImage: "url('/blue-green-mark.png')",
-                }}
-                >
-                  &nbsp;mix it up
-                </strong>
-                &nbsp;for the ultimate surprise!
-            </p>
-            <p className="py-[3vh]">
-              Now you don't have to decide on your own ;)
-            </p>
-          </div>
-          <div className="flex gap-10 justify-center flex-wrap text-black">
-            <Link href="">
-              <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#467bb3] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d17]">
-                <Image
-                  className="max-w-[2vw] max-h-[2vw]"
-                  src="/3.png"
-                  alt="Icon"
-                  width={300}
-                  height={100}
-                  priority
-                />
-                YOUR BOOKSHELF
-              </div>
-            </Link>
-            <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#0cf79e] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d17]">
+          <div className={`${
+                isOpen ? "ml-[10vw]" : "ml-0"
+              }`}>
+            <div className="flex flex-col items-center">
               <Image
-                className="max-w-[2vw] max-h-[2vw]"
-                src="/4.png"
-                alt="Icon"
-                width={300}
-                height={100}
+                className="w-[15vw] "
+                src="/icon.png"
+                alt="Page Icon"
+                width={1000}
+                height={1000}
                 priority
               />
-              GLOBAL READS
             </div>
-            <Link href="">
-              <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#9ae6ed] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d17]">
+            <div className="text-[1.8em]">
+              <p className="font-light">Stuck on what to read next?</p>
+              <p className="pt-[5vh]">
+                Let us randomly pick a book from
+                <strong className="bg-[length:100%_100%]"
+                  style={{
+                    backgroundImage: "url('/blue-mark.png')",
+                  }}
+                  >
+                    &nbsp;your own collection
+                </strong>
+                , from
+                <strong className="text-nowrap bg-[length:100%_100%]"
+                  style={{
+                    backgroundImage: "url('/green-mark.png')",
+                  }}
+                  >
+                    &nbsp;global reads
+                  </strong>
+                  , or
+                  <strong className="text-nowrap bg-[length:100%_100%]"
+                  style={{
+                    backgroundImage: "url('/blue-green-mark.png')",
+                  }}
+                  >
+                    &nbsp;mix it up
+                  </strong>
+                  &nbsp;for the ultimate surprise!
+              </p>
+              <p className="py-[3vh]">
+                Now you don't have to decide on your own ;)
+              </p>
+            </div>
+            <div className="flex gap-10 justify-center flex-wrap text-black">
+              <Link href="">
+                <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#467bb3] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d17]">
+                  <Image
+                    className="max-w-[2vw] max-h-[2vw]"
+                    src="/3.png"
+                    alt="Icon"
+                    width={300}
+                    height={100}
+                    priority
+                  />
+                  YOUR BOOKSHELF
+                </div>
+              </Link>
+              <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#0cf79e] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d17]">
                 <Image
                   className="max-w-[2vw] max-h-[2vw]"
-                  src="/5.png"
+                  src="/4.png"
                   alt="Icon"
                   width={300}
                   height={100}
                   priority
                 />
-                MIXED PICKS
+                GLOBAL READS
               </div>
-            </Link>
+              <Link href="">
+                <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#9ae6ed] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d17]">
+                  <Image
+                    className="max-w-[2vw] max-h-[2vw]"
+                    src="/5.png"
+                    alt="Icon"
+                    width={300}
+                    height={100}
+                    priority
+                  />
+                  MIXED PICKS
+                </div>
+              </Link>
+            </div>
           </div>
         </section>
         <section
@@ -315,10 +328,10 @@ export default function Home() {
           className="pl-[20vw] flex flex-col items-center justify-evenly content-center text-center h-[100vh] bg-right bg-[length:100%_100%]"
           style={{backgroundImage: "url('/bg1.png')"}}
         >
-          <div className="w-[100%] h-[100%] text-[1vw] p-[5vw] bg-right bg-[length:100%_100%] bg-no-repeat"
+          <div className="w-[100%] h-[100%] text-[1em] px-[5vw] py-[2vh] bg-right bg-[length:100%_100%] bg-no-repeat"
           style={{backgroundImage: "url('/openbook.png')"}}
-        >
-            <h1 className="text-[2vw] py-6 font-bold">Shuffle</h1>
+          >
+            <h1 className="text-[2em] py-6 font-bold">Shuffle</h1>
             <p>Looking for a book on a specific subject, author, or genre? Select it and shuffle.</p>
             <p>Or simply shuffle if you're not sure where to start.</p>
             
@@ -335,7 +348,7 @@ export default function Home() {
                   className="border rounded px-2 py-1 w-full"
                 />
                 {loadingAuthor && <p>Loading...</p>}
-                {author && authorsSuggestions.length > 0 && (
+                {author && !loadingAuthor && authorsSuggestions.length > 0 && (
                   <ul className="text-left">
                     {authorsSuggestions.map((suggestion, index) => (
                       <li
@@ -361,7 +374,7 @@ export default function Home() {
                   className="border rounded px-2 py-1 w-full"
                 />
                 {loadingCategory && <p>Loading...</p>}
-                {category && categorySuggestions.length > 0 && (
+                {category && loadingCategory === false && categorySuggestions.length > 0 && (
                   <ul className="text-left">
                     {categorySuggestions.map((suggestion, index) => (
                       <li
@@ -414,19 +427,37 @@ export default function Home() {
 
             {/* Result Section */}
             <div className="w-[100%]">
-              <h3 className="text-left">Result</h3>
-              <div className="flex gap-5 h-[27vh]">
-                <div className="w-[8vw] h-[10vw] bg-gray-200"></div>
-                <div className="text-left flex flex-col h-[25vh] w-[100%] justify-between">
-                  <p>Title: {result.title}</p>
-                  <p>Author: {result.author}</p>
-                  <p>Summary: {result.summary}</p>
-                  <p>Publish Year: {result.publishYear}</p>
-                  <div>
-                    <p className="text-[1vw]">Rate: n ratings</p>
+              {!result.title && !loading &&
+                  <p className="text-[1em] pt-[10vh]">The book we select for you will appear here!</p>}
+              {loading && 
+              <div className="loading">
+                  <div className="bookshelf_wrapper">
+                    <ul className="books_list">
+                      <li className="book_item first"></li>
+                      <li className="book_item second"></li>
+                      <li className="book_item third"></li>
+                      <li className="book_item fourth"></li>
+                      <li className="book_item fifth"></li>
+                      <li className="book_item sixth"></li>
+                    </ul>
+                    <div className="shelf"></div>
                   </div>
+                </div>}                
+              {result.title && !loading && !resultError ?
+                <div className="flex gap-5 h-[27vh] bg-no-repeat bg-[length:100%_100%]">
+                  <div className="w-[9vw] h-[100%]">
+                    <img src={result.thumbnail} alt="Book Cover" className="min-h-[70%]"/>
+                  </div>
+                  <div className="text-left flex flex-col h-[25vh] w-[100%] justify-between">
+                    <p>Title: {result.title}</p>
+                    <p>Author: {result.author}</p>
+                    <p className="overflow-y-scroll scrollbar">Summary: {result.summary}</p>
+                    <p>Publish Year: {result.publishYear}</p>
+                    <div>
+                      <p className="text-[1em]">Rate: {result.rating} ({result.ratingsCount} ratings)</p>
+                    </div>
                 </div>
-              </div>
+              </div> : resultError}
             </div>
           </div>
         </section>
@@ -436,9 +467,9 @@ export default function Home() {
           style={{backgroundImage: "url('/bg2.png')"}}
         >
           <div className="flex gap-2">
-            <p className="font-bold text-[2vw]">SIGN UP</p>
+            <p className="font-bold text-[2em]">SIGN UP</p>
             <p className="content-center">or</p>
-            <p className="font-bold text-[2vw]">SIGN IN</p>
+            <p className="font-bold text-[2em]">SIGN IN</p>
           </div>
           <div className="flex">TO ACCESS YOUR <div className="h-[2vw] w-[15vw] font-bold bg-[length:100%_100%]"
               style={{backgroundImage: "url('/highlighter.png')"}}
@@ -489,21 +520,44 @@ export default function Home() {
             <p>n already read books</p>
             <p>n saved shuffles</p>
           </div>
-          <Link href="/my-bookshelf">MANEGE PERSONAL BOOKSHELF</Link>
+          <Link href="">MANEGE PERSONAL BOOKSHELF</Link>
           <div>SHUFFLE YOUR OWN SHELF</div>
           <div>MIX IT UP</div>
         </section>}
         <section
           id="about"
-          className="pl-[22vw] flex flex-col justify-evenly gap-[10vh] h-[100vh] bg-right bg-[length:100%_100%]"
+          className="pl-[22vw] flex flex-col pt-[4%] gap-[10vh] h-[100vh] bg-right bg-[length:100%_100%]"
           style={{backgroundImage: "url('/bg4.png')"}}
         >
-          <div className="w-[75%] flex flex-col content-left gap-[5vh]">
-            <p className="font-bold text-[2vw] mb-[5vh] text-center">Welcome to BookShelffle!</p>
-            <p className="w-[92%]">&nbsp; Hi, I'm Sophia, a Systems Development student. I created this website as a personal project to learn, grow, and showcase in my portfolio.</p>
-            <p className="w-[92%]">&nbsp; Sometimes, I find myself stuck, unsure of which book to pick up next, and end up not reading anything at all. If you've ever felt the same way, BookShelffle is for you!
-              I decided to create this platform to help simplify the decision-making process and make it easier for readers to dive into their next great book.</p>
-            <p className="w-[85%]">&nbsp; If you have any suggestions or want to report a problem, feel free to send me an email at [your-email@example.com].</p>
+          <div className="w-[65%] flex flex-col content-left text-center">
+            <p className="font-bold text-[2em] mb-[5vh]">Welcome to BookShelffle!</p>
+            <div className="flex">
+              <div className="min-w-[35%] max-w-[17vw] flex flex-col gap-5">
+                <div className="relative">
+                  <div className="h-[2vw] w-[100%] bg-[length:100%_100%] absolute -top-3"
+                    style={{backgroundImage: "url('/marker2.png')"}}
+                  >About Me</div>
+                  <p className="bg-[length:100%_100%] p-[4%] pt-[10%] mb-[2%] content-center"
+                    style={{backgroundImage: "url('/border.png')"}}>Hi! I'm Sophia, a Systems Development student. I created this website as a personal project to learn, grow, and showcase in my portfolio.</p>
+                </div>
+                <div className="relative">
+                  <div className="h-[2vw] w-[100%] bg-[length:100%_100%] absolute -top-3"
+                    style={{backgroundImage: "url('/marker2.png')"}}
+                  >Contact</div>
+                  <p className="bg-[length:100%_100%] p-[4%] pt-[10%] content-center"
+                    style={{backgroundImage: "url('/border.png')"}}>If you have any suggestions or want to report a problem, feel free to send me an email at [your-email@example.com].</p>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="h-[2.5vw] w-[28vw] bg-[length:100%_100%] absolute -top-2 left-[50%] -translate-x-[50%] content-center"
+                      style={{backgroundImage: "url('/marker2.png')"}}
+                >About BookShelffle</div>
+                <p className="h-[100%] bg-[length:100%_100%] p-[8%] pt-[5%] ml-[1%] content-center"
+                  style={{backgroundImage: "url('/border.png')"}}>Sometimes, I find myself stuck, unsure of which book to pick up next, and end up not reading anything at all. If you've ever felt the same way, BookShelffle is for you!
+                  I decided to create this platform to help simplify the decision-making process and make it easier for readers to dive into their next great book.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
       </main>
