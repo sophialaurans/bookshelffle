@@ -138,6 +138,7 @@ export default function Home() {
 
         if (year) {
           const [startYear, endYear] = year.split('-');
+          console.log("startYear:", startYear, "endYear", endYear, "book.publishYear", book.publishYear)
           return (
             Number(book.publishYear) >= Number(startYear) &&
             Number(book.publishYear) <= Number(endYear)
@@ -455,12 +456,29 @@ export default function Home() {
                       />
                   </div>
                   <div className="text-left flex flex-col h-[25vh] w-[100%] justify-between">
-                    <p>Title: {result.title}</p>
-                    <p>Author: {result.author}</p>
-                    <p className="overflow-y-scroll scrollbar">Summary: {result.summary}</p>
-                    <p>Publish Year: {result.publishYear}</p>
-                    <div>
-                      <p className="text-[1em]">Rate: {result.rating} ({result.ratingsCount} ratings)</p>
+                    <div className="flex gap-2">
+                      <p className="font-bold underline decoration-wavy decoration-[#0cf79e]"> Title:</p>
+                      <p className="w-[100%]">{result.title}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <p className="font-bold underline decoration-wavy decoration-[#0cf79e]"> Author:</p>
+                      <p className="w-[100%]">{result.author}</p>
+                    </div>
+                    <div className="flex gap-2 max-h-[30%]">
+                      <p className="font-bold underline decoration-wavy decoration-[#0cf79e]"> Summary:</p>
+                      <p className="overflow-y-scroll scrollbar w-[100%]">{result.summary}</p>
+                    </div>
+                    <div className="flex gap-2 max-h-[30%]">
+                      <p className="font-bold underline decoration-wavy decoration-[#0cf79e]"> Subject:</p>
+                      <p className="w-[100%]">{result.categories}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <p className="font-bold underline decoration-wavy decoration-[#0cf79e]"> Publish Year:</p>
+                      <p>{result.publishYear}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <p className="font-bold underline decoration-wavy decoration-[#0cf79e]"> Rate:</p>
+                      <p className="w-[100%]">{result.rating} ({result.ratingsCount} ratings)</p>
                     </div>
                 </div>
               </div> : resultError}
@@ -532,7 +550,7 @@ export default function Home() {
         </section>}
         <section
           id="about"
-          className="pl-[25vw] pr-[30vw] flex flex-col pt-[4%] gap-[10vh] h-[100vh] bg-right bg-[length:100%_100%]"
+          className="pl-[25vw] pr-[30vw] flex flex-col justify-center gap-[10vh] h-[100vh] bg-right bg-[length:100%_100%]"
           style={{backgroundImage: "url('/bg4.png')"}}
         >
           <div className="text-center flex flex-col gap-5">
@@ -542,22 +560,24 @@ export default function Home() {
                   <div className="h-[2vw] w-[100%] bg-[length:100%_100%] absolute -top-3"
                     style={{backgroundImage: "url('/marker2.png')"}}
                   >About Me</div>
-                  <p className="h-[100%] border-4 border-dotted border-[#70a7d1] rounded-3xl p-[4%] pt-[10%] mb-[2%] content-center">{`Hi! I'm Sophia, a Systems Development student. I created this website as a personal project to learn, grow, and showcase in my portfolio.`}</p>
+                  <p className="h-[100%] border-4 border-dotted border-[#396d94] rounded-3xl p-[4%] pt-[10%] mb-[2%] content-center">{`Hi! I'm Sophia, a Systems Development student. I created this website as a personal project to learn, grow, and showcase in my portfolio.`}</p>
                 </div>
                 <div className="relative">
                   <div className="h-[2vw] w-[100%] bg-[length:100%_100%] absolute -top-3"
                     style={{backgroundImage: "url('/marker2.png')"}}
                   >Contact</div>
-                  <p className="h-[100%] border-4 border-dotted border-[#70a7d1] rounded-3xl p-[4%] pt-[10%] content-center">If you have any suggestions or want to report a problem, feel free to send me an email at [your-email@example.com].</p>
+                  <p className="h-[100%] border-4 border-dotted border-[#396d94] rounded-3xl p-[4%] pt-[10%] content-center">If you have any suggestions or want to report a problem, feel free to send me an email at <a href="mailto:bookshellfle@gmail.com" className="text-[#396d94]"> bookshellfle@gmail.com</a>.</p>
                 </div>
               </div>
               <div className="relative self-center">
                 <div className="h-[2.5vw] w-[100%] bg-[length:100%_100%] absolute -top-2 left-[50%] -translate-x-[50%] content-center"
                       style={{backgroundImage: "url('/marker2.png')"}}
                 >About BookShelffle</div>
-                <p className="border-4 border-dotted border-[#70a7d1] rounded-3xl p-[8%] pt-[5%] ml-[1%] content-center">{`Sometimes, I find myself stuck, unsure of which book to pick up next, and end up not reading anything at all. If you've ever felt the same way, BookShelffle is for you!
-                  I decided to create this platform to help simplify the decision-making process and make it easier for readers to dive into their next great book.`}
-                </p>
+                <div className="border-4 border-dotted border-[#396d94] rounded-3xl p-[5%] ml-[1%] content-center">
+                  <p>{`Sometimes, I find myself stuck, unsure of which book to pick up next, and end up not reading anything at all. If you've ever felt the same way`}, <strong>BookShelffle is for you!</strong></p>
+                  <p>I decided to create this platform to help simplify the decision-making process and make it easier for readers to dive into their next great book.</p>
+                  <p>By using the <strong>Google Books API</strong>, BookShelffle randomly suggests books from an extensive library to inspire your next read.</p>
+                </div>
               </div>
           </div>
         </section>
