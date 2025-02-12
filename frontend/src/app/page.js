@@ -36,12 +36,12 @@ export default function Home() {
       } else if (scrollTop <= homeHeight && isOpen) {
         menu.style.pointerEvents = 'auto';
       } else {
-        setIsOpen(!isOpen);
+        setIsOpen(prev => !prev); // Usar função dentro do setState para evitar dependência direta
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-  }, []);
+  }, [isOpen]);
 
   // Fetch authors based on user input
   const fetchAuthors = async (query) => {
@@ -279,7 +279,7 @@ export default function Home() {
                   &nbsp;for the ultimate surprise!
               </p>
               <p className="py-[3vh]">
-                Now you don't have to decide on your own ;)
+                {`Now you don't have to decide on your own ;)`}
               </p>
             </div>
             <div className="flex gap-10 justify-center flex-wrap text-black">
@@ -333,7 +333,7 @@ export default function Home() {
           >
             <h1 className="text-[2em] py-6 font-bold">Shuffle</h1>
             <p>Looking for a book on a specific subject, author, or genre? Select it and shuffle.</p>
-            <p>Or simply shuffle if you're not sure where to start.</p>
+            <p>{`Or simply shuffle if you're not sure where to start.`}</p>
             
             <div className="flex justify-between pt-[2vh] flex-wrap">
               {/* Author Input */}
@@ -446,7 +446,13 @@ export default function Home() {
               {result.title && !loading && !resultError ?
                 <div className="flex gap-5 h-[27vh] bg-no-repeat bg-[length:100%_100%]">
                   <div className="w-[9vw] h-[100%]">
-                    <img src={result.thumbnail} alt="Book Cover" className="min-h-[70%]"/>
+                    <Image
+                        src={result.thumbnail}
+                        width={1000}
+                        height={1000}
+                        alt="Book Cover"
+                        className="min-h-[70%]"
+                      />
                   </div>
                   <div className="text-left flex flex-col h-[25vh] w-[100%] justify-between">
                     <p>Title: {result.title}</p>
@@ -494,7 +500,7 @@ export default function Home() {
         </section> : <section
           className="pl-[25vw] pr-[5vw] flex flex-col items-center place-self-center justify-evenly content-center text-center h-[100vh] w-[100vw]"
         >
-          <h3>USER'S PERSONAL BOOKSHELF</h3>
+          <h3>{`USER'S PERSONAL BOOKSHELF`}</h3>
           <div className="flex">
             <div className="w-[9vw] h-[27vh] bg-gray-200 hover:translate-y-[-1vh] hover:z-10"></div>
             <div className="w-[9vw] h-[27vh] bg-gray-300 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
@@ -526,38 +532,33 @@ export default function Home() {
         </section>}
         <section
           id="about"
-          className="pl-[22vw] flex flex-col pt-[4%] gap-[10vh] h-[100vh] bg-right bg-[length:100%_100%]"
+          className="pl-[25vw] pr-[30vw] flex flex-col pt-[4%] gap-[10vh] h-[100vh] bg-right bg-[length:100%_100%]"
           style={{backgroundImage: "url('/bg4.png')"}}
         >
-          <div className="w-[65%] flex flex-col content-left text-center">
+          <div className="text-center flex flex-col gap-5">
             <p className="font-bold text-[2em] mb-[5vh]">Welcome to BookShelffle!</p>
-            <div className="flex">
-              <div className="min-w-[35%] max-w-[17vw] flex flex-col gap-5">
+              <div className="min-w-[35%] flex gap-5">
                 <div className="relative">
                   <div className="h-[2vw] w-[100%] bg-[length:100%_100%] absolute -top-3"
                     style={{backgroundImage: "url('/marker2.png')"}}
                   >About Me</div>
-                  <p className="bg-[length:100%_100%] p-[4%] pt-[10%] mb-[2%] content-center"
-                    style={{backgroundImage: "url('/border.png')"}}>Hi! I'm Sophia, a Systems Development student. I created this website as a personal project to learn, grow, and showcase in my portfolio.</p>
+                  <p className="h-[100%] border-4 border-dotted border-[#70a7d1] rounded-3xl p-[4%] pt-[10%] mb-[2%] content-center">{`Hi! I'm Sophia, a Systems Development student. I created this website as a personal project to learn, grow, and showcase in my portfolio.`}</p>
                 </div>
                 <div className="relative">
                   <div className="h-[2vw] w-[100%] bg-[length:100%_100%] absolute -top-3"
                     style={{backgroundImage: "url('/marker2.png')"}}
                   >Contact</div>
-                  <p className="bg-[length:100%_100%] p-[4%] pt-[10%] content-center"
-                    style={{backgroundImage: "url('/border.png')"}}>If you have any suggestions or want to report a problem, feel free to send me an email at [your-email@example.com].</p>
+                  <p className="h-[100%] border-4 border-dotted border-[#70a7d1] rounded-3xl p-[4%] pt-[10%] content-center">If you have any suggestions or want to report a problem, feel free to send me an email at [your-email@example.com].</p>
                 </div>
               </div>
-              <div className="relative">
-                <div className="h-[2.5vw] w-[28vw] bg-[length:100%_100%] absolute -top-2 left-[50%] -translate-x-[50%] content-center"
+              <div className="relative self-center">
+                <div className="h-[2.5vw] w-[100%] bg-[length:100%_100%] absolute -top-2 left-[50%] -translate-x-[50%] content-center"
                       style={{backgroundImage: "url('/marker2.png')"}}
                 >About BookShelffle</div>
-                <p className="h-[100%] bg-[length:100%_100%] p-[8%] pt-[5%] ml-[1%] content-center"
-                  style={{backgroundImage: "url('/border.png')"}}>Sometimes, I find myself stuck, unsure of which book to pick up next, and end up not reading anything at all. If you've ever felt the same way, BookShelffle is for you!
-                  I decided to create this platform to help simplify the decision-making process and make it easier for readers to dive into their next great book.
+                <p className="border-4 border-dotted border-[#70a7d1] rounded-3xl p-[8%] pt-[5%] ml-[1%] content-center">{`Sometimes, I find myself stuck, unsure of which book to pick up next, and end up not reading anything at all. If you've ever felt the same way, BookShelffle is for you!
+                  I decided to create this platform to help simplify the decision-making process and make it easier for readers to dive into their next great book.`}
                 </p>
               </div>
-            </div>
           </div>
         </section>
       </main>
