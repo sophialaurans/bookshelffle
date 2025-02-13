@@ -190,7 +190,7 @@ export default function Home() {
           <div
             id="menu"
             ref={menuRef}
-            className={`ml-12 bg-bottom bg-no-repeat w-[18vw] fixed flex justify-center items-center transition-all duration-300 z-10 cursor-pointer ${
+            className={`menu ${
             isOpen ? "min-h-[95vh] bg-cover" : "h-[30vh] bg-[100%-auto] hover:h-[33vh]"
           }`}
             style={{
@@ -232,17 +232,17 @@ export default function Home() {
           </div>
         <section
           id="home" 
-          className="h-[100vh] pb-[8vh] pt-[4vh] px-[15vw] flex flex-col items-center place-self-center justify-evenly content-center text-center bg-[length:100%_100%]"
+          className="section-size sec1-padding all-center justify-around section-bg"
           style={{
             backgroundImage: "url('/bg.png')",
           }}
           >
           <div className={`${
-                isOpen ? "ml-[10vw]" : "ml-0"
-              }`}>
-            <div className="flex flex-col items-center">
+                isOpen ? "is-open" : "not-open"
+          }`}>
+            <div className="flex flex-col items-center pb-[5vh]">
               <Image
-                className="w-[15vw] "
+                className="logo"
                 src="/icon.png"
                 alt="Page Icon"
                 width={1000}
@@ -250,7 +250,7 @@ export default function Home() {
                 priority
               />
             </div>
-            <div className="text-[1.8em]">
+            <div className="text-size">
               <p className="font-light">Stuck on what to read next?</p>
               <p className="pt-[5vh]">
                 Let us randomly pick a book from
@@ -285,21 +285,21 @@ export default function Home() {
             </div>
             <div className="flex gap-10 justify-center flex-wrap text-black">
               <Link href="">
-                <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#467bb3] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d17]">
+                <div className="bg-[#ffc425] hover:bg-[#467bb3] sec1-button">
                   <Image
-                    className="max-w-[2vw] max-h-[2vw]"
+                    className="sec1-button-img"
                     src="/3.png"
                     alt="Icon"
                     width={300}
-                    height={100}
+                    height={300}
                     priority
                   />
                   YOUR BOOKSHELF
                 </div>
               </Link>
-              <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#0cf79e] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d17]">
+              <div className="bg-[#ffc425] hover:bg-[#0cf79e] sec1-button">
                 <Image
-                  className="max-w-[2vw] max-h-[2vw]"
+                  className="sec1-button-img"
                   src="/4.png"
                   alt="Icon"
                   width={300}
@@ -309,9 +309,9 @@ export default function Home() {
                 GLOBAL READS
               </div>
               <Link href="">
-                <div className="py-5 px-4 bg-[#ffc425] hover:bg-[#9ae6ed] rounded-2xl flex gap-3 justify-center shadow-inner shadow-[#2d2d2d17]">
+                <div className="bg-[#ffc425] hover:bg-[#9ae6ed] sec1-button">
                   <Image
-                    className="max-w-[2vw] max-h-[2vw]"
+                    className="sec1-button-img"
                     src="/5.png"
                     alt="Icon"
                     width={300}
@@ -326,11 +326,11 @@ export default function Home() {
         </section>
         <section
           id="shuffle"
-          className="pl-[20vw] flex flex-col items-center justify-evenly content-center text-center h-[100vh] bg-right bg-[length:100%_100%]"
+          className="all-center justify-evenly pl-[20vw] section-size section-bg"
           style={{backgroundImage: "url('/bg1.png')"}}
         >
-          <div className="w-[100%] h-[100%] text-[1em] px-[5vw] py-[2vh] bg-right bg-[length:100%_100%] bg-no-repeat"
-          style={{backgroundImage: "url('/openbook.png')"}}
+          <div className="sec2-container"
+            style={{backgroundImage: "url('/openbook.png')"}}
           >
             <h1 className="text-[2em] py-6 font-bold">Shuffle</h1>
             <p>Looking for a book on a specific subject, author, or genre? Select it and shuffle.</p>
@@ -338,7 +338,7 @@ export default function Home() {
             
             <div className="flex justify-between pt-[2vh] flex-wrap">
               {/* Author Input */}
-              <div className="relative flex flex-col w-[24%] shadow shadow-[#2d2d2d70] bg-[#e2e2e26e] p-5 rounded-xl h-[25vh] overflow-y-scroll scrollbar justify-between">
+              <div className="search-container scrollbar">
                 <label htmlFor="author-input">Which author would you like to read?</label>
                 <input
                   id="author-input"
@@ -364,7 +364,7 @@ export default function Home() {
                 )}
               </div>
               {/* Category Selection */}
-              <div className="relative flex flex-col w-[24%] shadow shadow-[#2d2d2d70] bg-[#e2e2e26e] p-5 rounded-xl h-[25vh] overflow-y-scroll scrollbar justify-between">
+              <div className="search-container scrollbar">
                 <label htmlFor="category">Which subject or genre are you most interested in at the moment?</label>
                 <input
                   id="category-input"
@@ -391,7 +391,7 @@ export default function Home() {
               </div>
 
               {/* Year Selection */}
-              <div className="relative flex flex-col w-[24%] shadow shadow-[#2d2d2d70] bg-[#e2e2e26e] p-5 rounded-xl h-[25vh] justify-between">
+              <div className="search-container scrollbar">
                 <label htmlFor="year">From which time period would you like your next reading to be from?</label>
                 <select id="years" name="years" className="border rounded px-2 py-1 w-full" onChange={(e) => setYear(e.target.value)}>
                   <option value="">Select a year range</option>
@@ -404,7 +404,7 @@ export default function Home() {
               </div>
 
               {/* Rating Selection */}
-              <div className="relative flex flex-col w-[24%] shadow shadow-[#2d2d2d70] bg-[#e2e2e26e] p-5 rounded-xl h-[25vh] justify-between">
+              <div className="search-container scrollbar">
                 <label htmlFor="rating">Choose the rating you would like your next reading to have.</label>
                 <select id="ratings" name="ratings" className="border rounded px-2 py-1 w-full" onChange={(e) => {
                   setRating(e.target.value);
@@ -429,7 +429,7 @@ export default function Home() {
             {/* Result Section */}
             <div className="w-[100%]">
               {!result.title && !loading &&
-                  <p className="text-[1em] pt-[10vh]">The book we select for you will appear here!</p>}
+                  <p className="pt-[10vh]">The book we select for you will appear here!</p>}
               {loading && 
               <div className="loading">
                   <div className="bookshelf_wrapper">
@@ -446,13 +446,13 @@ export default function Home() {
                 </div>}                
               {result.title && !loading && !resultError ?
                 <div className="flex gap-5 h-[27vh] bg-no-repeat bg-[length:100%_100%]">
-                  <div className="w-[9vw] h-[100%]">
+                  <div className="w-[20%]">
                     <Image
                         src={result.thumbnail}
                         width={1000}
                         height={1000}
                         alt="Book Cover"
-                        className="min-h-[70%]"
+                        className="max-w-[100%] max-h-[22vh]"
                       />
                   </div>
                   <div className="text-left flex flex-col h-[25vh] w-[100%] justify-between">
@@ -487,57 +487,58 @@ export default function Home() {
         </section>
         {user === null ? <section
           id="bookshelf"
-          className="pl-[25vw] pr-[5vw] flex flex-col items-center place-self-center justify-evenly content-center text-center h-[100vh] w-[100vw] bg-right bg-[length:100%_100%]"
+          className="all-center justify-evenly sec3-padding section-size section-bg"
           style={{backgroundImage: "url('/bg2.png')"}}
         >
           <div className="flex gap-2">
-            <p className="font-bold text-[2em]">SIGN UP</p>
+            <p className="sign-in-up">SIGN UP</p>
             <p className="content-center">or</p>
-            <p className="font-bold text-[2em]">SIGN IN</p>
+            <p className="sign-in-up">SIGN IN</p>
           </div>
-          <div className="flex">TO ACCESS YOUR <div className="h-[2vw] w-[15vw] font-bold bg-[length:100%_100%]"
+          <div className="flex">TO ACCESS YOUR
+            <div className="px-3 font-bold bg-[length:100%_100%]"
               style={{backgroundImage: "url('/highlighter.png')"}}
-            >PERSONAL BOOKSHELF</div></div>
+            >PERSONAL BOOKSHELF</div>
+          </div>
           <div className="w-[100%] px-[10vw]">
-            <div className="relative transform transition-transform hover:-rotate-3 hover:translate-x-2 h-[20vh] w-[15vw] flex bg-[length:100%_100%] justify-center items-center justify-self-start"
+            <div className="postit h-[20vh] justify-self-start"
               style={{backgroundImage: "url('/postit1.png')"}}
             >
               <p className="w-[80%] text-wrap">YOU REGISTER YOUR BOOKS</p>
             </div>
-            <div className="relative transform transition-transform hover:rotate-3 hover:-translate-x-2 h-[22vh] w-[15vw] flex bg-[length:100%_100%] justify-center items-center justify-self-center"
+            <div className="postit h-[22vh] justify-self-center"
               style={{backgroundImage: "url('/postit2.png')"}}
             >
               <p className="w-[80%] mt-[10%] text-wrap">WE SHUFFLE YOUR OWN SHELF</p>
             </div>
-            <div className="relative transform transition-transform hover:rotate-3 hover:-translate-x-2 h-[20vh] w-[15vw] flex bg-[length:100%_100%] justify-center items-center justify-self-end"
+            <div className="postit h-[20vh] justify-self-end"
               style={{backgroundImage: "url('/postit3.png')"}}
             >
               <p className="w-[80%] text-wrap">WE PICK YOUR NEXT READ</p>
             </div>
           </div>
         </section> : <section
-          className="pl-[25vw] pr-[5vw] flex flex-col items-center place-self-center justify-evenly content-center text-center h-[100vh] w-[100vw]"
-        >
+          className="all-center pl-[25vw] pr-[5vw] section-size">
           <h3>{`USER'S PERSONAL BOOKSHELF`}</h3>
           <div className="flex">
             <div className="w-[9vw] h-[27vh] bg-gray-200 hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-300 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-400 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-200 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-300 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-400 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-200 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-300 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-400 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-200 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-300 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-400 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-200 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-300 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-400 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-200 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-300 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
-            <div className="w-[9vw] h-[27vh] bg-gray-400 -ml-[5vw] hover:translate-y-[-1vh] hover:z-10"></div>
+            <div className="book-covers bg-gray-300"></div>
+            <div className="book-covers bg-gray-400"></div>
+            <div className="book-covers bg-gray-200"></div>
+            <div className="book-covers bg-gray-300"></div>
+            <div className="book-covers bg-gray-400"></div>
+            <div className="book-covers bg-gray-200"></div>
+            <div className="book-covers bg-gray-300"></div>
+            <div className="book-covers bg-gray-400"></div>
+            <div className="book-covers bg-gray-200"></div>
+            <div className="book-covers bg-gray-300"></div>
+            <div className="book-covers bg-gray-400"></div>
+            <div className="book-covers bg-gray-200"></div>
+            <div className="book-covers bg-gray-300"></div>
+            <div className="book-covers bg-gray-400"></div>
+            <div className="book-covers bg-gray-200"></div>
+            <div className="book-covers bg-gray-300"></div>
+            <div className="book-covers bg-gray-400"></div>
           </div>
           <div className="flex w-[100%] justify-between">
             <p>n books total</p>
@@ -550,36 +551,34 @@ export default function Home() {
         </section>}
         <section
           id="about"
-          className="pl-[25vw] pr-[30vw] flex flex-col justify-center gap-[10vh] h-[100vh] bg-right bg-[length:100%_100%]"
+          className="pl-[25vw] pr-[30vw] all-center gap-5 section-size section-bg"
           style={{backgroundImage: "url('/bg4.png')"}}
         >
-          <div className="text-center flex flex-col gap-5">
             <p className="font-bold text-[2em] mb-[5vh]">Welcome to BookShelffle!</p>
               <div className="min-w-[35%] flex gap-5">
                 <div className="relative">
-                  <div className="h-[2vw] w-[100%] bg-[length:100%_100%] absolute -top-3"
+                  <div className="last-sec-cards-marker"
                     style={{backgroundImage: "url('/marker2.png')"}}
                   >About Me</div>
-                  <p className="h-[100%] border-4 border-dotted border-[#396d94] rounded-3xl p-[4%] pt-[10%] mb-[2%] content-center">{`Hi! I'm Sophia, a Systems Development student. I created this website as a personal project to learn, grow, and showcase in my portfolio.`}</p>
+                  <p className="last-sec-cards mt-[2vh]">{`Hi! I'm Sophia, a Systems Development student. I created this website as a personal project to learn, grow, and showcase in my portfolio.`}</p>
                 </div>
                 <div className="relative">
-                  <div className="h-[2vw] w-[100%] bg-[length:100%_100%] absolute -top-3"
+                  <div className="last-sec-cards-marker"
                     style={{backgroundImage: "url('/marker2.png')"}}
                   >Contact</div>
-                  <p className="h-[100%] border-4 border-dotted border-[#396d94] rounded-3xl p-[4%] pt-[10%] content-center">If you have any suggestions or want to report a problem, feel free to send me an email at <a href="mailto:bookshellfle@gmail.com" className="text-[#396d94]"> bookshellfle@gmail.com</a>.</p>
+                  <p className="last-sec-cards mt-[2vh]">If you have any suggestions or want to report a problem, feel free to send me an email at <a href="mailto:bookshellfle@gmail.com" className="text-[#396d94]"> bookshellfle@gmail.com</a>.</p>
                 </div>
               </div>
-              <div className="relative self-center">
-                <div className="h-[2.5vw] w-[100%] bg-[length:100%_100%] absolute -top-2 left-[50%] -translate-x-[50%] content-center"
+              <div className="relative">
+                <div className="last-sec-cards-marker"
                       style={{backgroundImage: "url('/marker2.png')"}}
                 >About BookShelffle</div>
-                <div className="border-4 border-dotted border-[#396d94] rounded-3xl p-[5%] ml-[1%] content-center">
+                <div className="last-sec-cards">
                   <p>{`Sometimes, I find myself stuck, unsure of which book to pick up next, and end up not reading anything at all. If you've ever felt the same way`}, <strong>BookShelffle is for you!</strong></p>
                   <p>I decided to create this platform to help simplify the decision-making process and make it easier for readers to dive into their next great book.</p>
                   <p>By using the <strong>Google Books API</strong>, BookShelffle randomly suggests books from an extensive library to inspire your next read.</p>
                 </div>
               </div>
-          </div>
         </section>
       </main>
     </div>

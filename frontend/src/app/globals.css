@@ -19,7 +19,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: 'Sour Gummy', sans-serif;
-  font-size: 1.2vw;
+  font-size: 1em;
   color: #2D2D2D;
 }
 
@@ -27,7 +27,96 @@ main {
   overflow: hidden;
 }
 
+.menu {
+  margin-left: 5vw;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  width: 18vw;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 300 ease-in-out;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.section-bg {
+  background-size: 100% 100%;
+}
+
+.section-size {
+  max-height: 100vh;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.text-size {
+  font-size: 1.8em;
+}
+
+.sec1-padding {
+  padding: 10vh 15vw 8vh;
+}
+
+.is-open {
+  margin-left: 10vw;
+}
+
+.not-open {
+  margin-left: 0;
+}
+
+.logo {
+  width: 30vh;
+}
+
+.sec1-button {
+  padding: 20px 10px;
+  border-radius: 15px;
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  box-shadow: inset ;
+}
+
+.sec1-button-img {
+  max-width: 3vh;
+  max-height: 3vh;
+}
+
+.all-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  place-self: center;
+}
+
+.sec2-container {
+  width: 100%;
+  height: 99vh;
+  padding: 2vh 5vw;
+  background-size: 100% 100%;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 24%;
+  box-shadow: 0px 1px 2px #2d2d2d70;
+  background-color: #e2e2e26e;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 1px;
+  height: 25vh;
+  justify-content: space-between;
+}
+
 .scrollbar {
+  overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #6b7280 #f3f4f623;
 }
@@ -44,6 +133,63 @@ main {
   background-color: #6b7280;
   border-radius: 4px;
   border: 2px solid #f3f4f6;
+}
+
+.sec3-padding {
+  padding: 0 0 5vh 25vw;
+}
+
+.sign-in-up {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.sign-in-up:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.postit {
+  position: relative;
+  transition: transform 300ms ease-in-out;
+  width: 15vw;
+  display: flex;
+  background-size: 100% 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.postit:hover {
+  transform: rotate(3deg) translateX(-0.5rem);
+}
+
+.book-covers {
+  width: 9vw;
+  height: 27vh;
+  margin-left: -5vw;
+}
+
+.book-covers:hover {
+  transform: translateY(-1vh);
+  z-index: 10;
+}
+
+.last-sec-cards-marker {
+  position: absolute;
+  height: 2vw;
+  width: 100%;
+  background-size: 100% 100%;
+  top: -3px;
+}
+
+.last-sec-cards {
+  height: 100%;
+  border-width: 4px;
+  border-style: dotted;
+  border-color: #396d94;
+  border-radius: 30px;
+  padding: 4% 3% 2%;
+  justify-content: center;
 }
 
 /* Loading Animation - Adapted from maluong's Code on CodePen: https: //codepen.io/maluong */
@@ -304,5 +450,75 @@ main {
   100% {
     opacity: 0;
     transform: translateX(0px) rotateZ(-90deg);
+  }
+}
+
+@media (max-width: 855px) and (orientation: landscape) {
+  .text-size {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .section-size {
+    max-height: 160vh;
+  }
+  
+  .sec2-container {
+    width: 140%;
+    height: 160vh;
+    padding-right: 25%;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 700px) and (orientation: portrait) {
+  body {
+    font-size: 0.8em;
+  }
+  
+  .menu {
+    display: none;
+  }
+
+  .is-open {
+    margin-left: 0;
+  }
+
+  .section-bg {
+    background-size: auto 100%;
+    background-position-x: right;
+  }
+
+  .logo {
+    width: 20vh;
+  }
+
+  .sec1-padding {
+    padding: 7vh 10vw;
+  }
+
+  .sec2-container {
+    width: 140%;
+    height: 120vh;
+    padding-right: 25%;
+    overflow: hidden;
+  }
+
+  .search-container {
+    width: 50%;
+    height: 18vh;
+  }
+
+  .section-size {
+    max-height: 120vh;
+  }
+
+  .sec3-padding {
+    padding: 0;
+  }
+
+  .postit {
+    width: 25vw;
   }
 }
