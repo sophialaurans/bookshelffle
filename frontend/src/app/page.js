@@ -278,6 +278,7 @@ export default function Home() {
               <Link href="#about"><p className="menu-link">About</p></Link>
             </div>
           </div>
+
         <section
           id="home" 
           className="section-size sec1-padding all-center justify-around section-bg"
@@ -286,7 +287,7 @@ export default function Home() {
           }}
           >
           <div className={`transition-[margin-left] duration-500 ease-in-out ${
-                isOpenMobile ? "is-open" : "not-open"
+                isOpen ? "is-open" : "not-open"
           }`}>
             <div className="flex flex-col items-center pb-[5vh]">
               <Image
@@ -608,13 +609,13 @@ export default function Home() {
                   <div className="last-sec-cards-marker"
                     style={{backgroundImage: "url('/marker2.png')"}}
                   >About Me</div>
-                  <p className="last-sec-cards mt-[2vh]">{`Hi! I'm Sophia, a Systems Development student. I created this website as a personal project to learn, grow, and showcase in my portfolio.`}</p>
+                  <p className="last-sec-cards mt-[1vh]">{`Hi! I'm Sophia, a Systems Development student. I created this website as a personal project to learn, grow, and showcase in my portfolio.`}</p>
                 </div>
                 <div className="relative">
                   <div className="last-sec-cards-marker"
                     style={{backgroundImage: "url('/marker2.png')"}}
                   >Contact</div>
-                  <p className="last-sec-cards mt-[2vh]">If you have any suggestions or want to report a problem, feel free to send me an email at <a href="mailto:bookshellfle@gmail.com" className="text-[#396d94]"> bookshellfle@gmail.com</a>.</p>
+                  <p className="last-sec-cards mt-[1vh]">If you have any suggestions or want to report a problem, feel free to send me an email at <a href="mailto:bookshellfle@gmail.com" className="text-[#396d94]"> bookshellfle@gmail.com</a>.</p>
                 </div>
               </div>
               <div className="relative">

@@ -93,7 +93,7 @@ main {
 }
 
 .logo {
-  width: 30vh;
+  width: 35vh;
 }
 
 .sec1-button {
@@ -225,8 +225,8 @@ main {
   border-color: #396d94;
   background-color: #e5fdff8e;
   border-radius: 30px;
-  padding: 4% 3% 2%;
   justify-content: center;
+  padding-top: 1.5em;
 }
 
 /* Loading Animation - Adapted from maluong's Code on CodePen: https: //codepen.io/maluong */
