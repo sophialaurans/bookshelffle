@@ -8,6 +8,7 @@ import ratings from './data/ratings';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenMobile, setIsOpenMobile] = useState(false);
   const menuRef = useRef(null);
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
@@ -91,10 +92,14 @@ export default function Home() {
     const queries = [
       `${fullQuery}`,
       `a+${fullQuery}`,
-      `e+${fullQuery}`,
-      `i+${fullQuery}`,
-      `o+${fullQuery}`,
-      `u+${fullQuery}`,
+      `the+${fullQuery}`,
+      `be+${fullQuery}`,
+      `to+${fullQuery}`,
+      `of+${fullQuery}`,
+      `and+${fullQuery}`,
+      `in+${fullQuery}`,
+      `that+${fullQuery}`,
+      `i+${fullQuery}`
     ];
 
     const books = [];
@@ -190,8 +195,8 @@ export default function Home() {
           <div
             id="menu"
             ref={menuRef}
-            className={`menu ${
-            isOpen ? "min-h-[95vh] bg-cover" : "h-[30vh] bg-[100%-auto] hover:h-[33vh]"
+            className={`menu transition-[height] duration-500 ease-in-out ${
+            isOpen ? "h-[95vh] bg-[length:100%_100%]" : "h-[30vh] hover:h-[33vh] bg-cover"
           }`}
             style={{
               backgroundImage: "url('/bookmark.png')",
@@ -199,22 +204,22 @@ export default function Home() {
             onClick={() => setIsOpen(!isOpen)}
           >
             <div
-              className={`max-w-[13vw] absolute text-center mb-[20vh] transition-all duration-250 ${
-                isOpen ? "opacity-100 block" : "opacity-0 hidden"
+              className={`max-w-[13vw] absolute text-center mb-[20vh] transition-all duration-300 ease-in-out ${
+                isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
               }`}
               style={{ overflow: "hidden" }}
               onClick={(e) => {
                 e.stopPropagation();
               }}
             >
-              <div className="py-[5vh] text-[100%] hover:text-white">
+              <div className="py-[5vh] hover:text-white transition-[color] duration-150">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth="0.6"
                   stroke="currentColor"
-                  className="size-[4vw] inline-block"
+                  className="size-[6vh] inline-block"
                 >
                   <path
                     strokeLinecap="round"
@@ -224,10 +229,53 @@ export default function Home() {
                 </svg>
                 <p>User Name</p>
               </div>
-              <Link href="#home"><p className="py-[3vh] hover:text-white">Home</p></Link>
-              <Link href="#shuffle"><p className="py-[3vh] hover:text-white">Shuffle</p></Link>
-              <Link href="#bookshelf"><p className="py-[3vh] hover:text-white">Personal Bookshelf</p></Link>
-              <Link href="#about"><p className="py-[3vh] hover:text-white">About</p></Link>
+              <Link href="#home"><p className="menu-link">Home</p></Link>
+              <Link href="#shuffle"><p className="menu-link">Shuffle</p></Link>
+              <Link href="#bookshelf"><p className="menu-link">Personal Bookshelf</p></Link>
+              <Link href="#about"><p className="menu-link">About</p></Link>
+            </div>
+          </div>
+
+          <div
+            id="menu-mobile"
+            className={`menu-mobile transition-[height] duration-500 ease-in-out ${
+            isOpenMobile ? "h-[95vh] w-[40vw] bg-[length:100%_100%]" : "h-[15vh] w-[20vw] hover:h-[20vh] bg-cover"
+          }`}
+            style={{
+              backgroundImage: "url('/bookmark-mobile.png')",
+            }}
+            onClick={() => setIsOpenMobile(!isOpenMobile)}
+          >
+            <div
+              className={` absolute text-center text-[1.1em] w-[100%] mb-[20vh] transition-all duration-300 ease-in-out ${
+                isOpenMobile ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+              }`}
+              style={{ overflow: "hidden" }}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <div className="py-[5vh] hover:text-white transition-[color] duration-150">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="0.6"
+                  stroke="currentColor"
+                  className="size-[6vh] inline-block"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+                <p>User Name</p>
+              </div>
+              <Link href="#home"><p className="menu-link">Home</p></Link>
+              <Link href="#shuffle"><p className="menu-link">Shuffle</p></Link>
+              <Link href="#bookshelf"><p className="menu-link">Personal Bookshelf</p></Link>
+              <Link href="#about"><p className="menu-link">About</p></Link>
             </div>
           </div>
         <section
@@ -237,8 +285,8 @@ export default function Home() {
             backgroundImage: "url('/bg.png')",
           }}
           >
-          <div className={`${
-                isOpen ? "is-open" : "not-open"
+          <div className={`transition-[margin-left] duration-500 ease-in-out ${
+                isOpenMobile ? "is-open" : "not-open"
           }`}>
             <div className="flex flex-col items-center pb-[5vh]">
               <Image
@@ -452,7 +500,7 @@ export default function Home() {
                         width={1000}
                         height={1000}
                         alt="Book Cover"
-                        className="max-w-[100%] max-h-[22vh]"
+                        className="max-w-[100%] max-h-[22vh] rounded-md"
                       />
                   </div>
                   <div className="text-left flex flex-col h-[25vh] w-[100%] justify-between">
@@ -551,11 +599,11 @@ export default function Home() {
         </section>}
         <section
           id="about"
-          className="pl-[25vw] pr-[30vw] all-center gap-5 section-size section-bg"
+          className="last-sec-padding all-center section-size section-bg"
           style={{backgroundImage: "url('/bg4.png')"}}
         >
             <p className="font-bold text-[2em] mb-[5vh]">Welcome to BookShelffle!</p>
-              <div className="min-w-[35%] flex gap-5">
+              <div className="last-sec-cards-container">
                 <div className="relative">
                   <div className="last-sec-cards-marker"
                     style={{backgroundImage: "url('/marker2.png')"}}
