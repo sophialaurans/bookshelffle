@@ -137,7 +137,7 @@ main {
   border-radius: 10px;
   margin: 1px;
   height: 25vh;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .scrollbar {

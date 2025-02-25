@@ -346,17 +346,19 @@ export default function Home() {
                   YOUR BOOKSHELF
                 </div>
               </Link>
-              <div className="bg-[#ffc425] hover:bg-[#0cf79e] sec1-button">
-                <Image
-                  className="sec1-button-img"
-                  src="/4.png"
-                  alt="Icon"
-                  width={300}
-                  height={100}
-                  priority
-                />
-                GLOBAL READS
-              </div>
+              <Link href="">
+                <div className="bg-[#ffc425] hover:bg-[#0cf79e] sec1-button">
+                  <Image
+                    className="sec1-button-img"
+                    src="/4.png"
+                    alt="Icon"
+                    width={300}
+                    height={100}
+                    priority
+                  />
+                  GLOBAL READS
+                </div>
+              </Link>
               <Link href="">
                 <div className="bg-[#ffc425] hover:bg-[#9ae6ed] sec1-button">
                   <Image
@@ -477,8 +479,8 @@ export default function Home() {
 
             {/* Result Section */}
             <div className="w-[100%]">
-              {!result.title && !loading &&
-                  <p className="pt-[10vh]">The book we select for you will appear here!</p>}
+              {!result.title && !loading && !resultError &&
+                <p className="pt-[10vh]">The book we select for you will appear here!</p>}
               {loading && 
               <div className="loading">
                   <div className="bookshelf_wrapper">
@@ -509,9 +511,9 @@ export default function Home() {
                       <p className="font-bold underline decoration-wavy decoration-[#0cf79e]"> Title:</p>
                       <p className="w-[100%]">{result.title}</p>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 max-h-[30%]">
                       <p className="font-bold underline decoration-wavy decoration-[#0cf79e]"> Author:</p>
-                      <p className="w-[100%]">{result.author}</p>
+                      <p className="overflow-y-scroll scrollbar w-[100%]">{result.author}</p>
                     </div>
                     <div className="flex gap-2 max-h-[30%]">
                       <p className="font-bold underline decoration-wavy decoration-[#0cf79e]"> Summary:</p>
