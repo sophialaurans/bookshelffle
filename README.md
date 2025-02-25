@@ -3,10 +3,101 @@
   
 # Bookshelffle
 
-#### [EN-US](#english-version) | [PT-BR](#versão-em-português)
+#### [PT-BR](#versão-em-português) | [EN-US](#english-version)
 
 </div>
 <br>
+
+## Versão em Português
+
+Bookshelffle é uma aplicação web que ajuda os usuários a selecionar aleatoriamente livros de sua lista de leitura ou da coleção completa disponível via a API do Google Books, facilitando a escolha da próxima leitura.
+
+## Status
+Este projeto está em desenvolvimento.
+
+## Funcionalidades
+
+- Selecionar aleatoriamente um livro da sua estante pessoal e/ou da coleção global do Google Books.
+- Criação e gerenciamento de conta de usuário (em breve).
+- Adicionar livros à sua estante virtual (em breve).
+- Salvar e visualizar o histórico dos resultados de seleção de livros (em breve).
+
+## Tecnologias Utilizadas
+
+- **Frontend**: React.js
+- **Backend**: Node.js
+- **API**: Google Books API
+
+## Idiomas
+
+O site está disponível atualmente em inglês, com planos de implementar traduções adicionais no futuro.
+
+## Demo
+
+A interface do BookShelffle está disponível para visualização no Vercel. Atualmente, a funcionalidade de seleção de livros da coleção global do Google Books está implementada, mas o servidor ainda não foi configurado para suportar as operações completas.
+
+[Demo do BookShelffle](https://bookshelffle.vercel.app/)
+
+## Como Rodar Localmente
+
+Para rodar esse projeto localmente, siga os seguintes passos:
+
+### 1. Clone o repositório:
+```
+git clone https://github.com/sophialaurans/bookshelffle.git
+```
+
+### 2. Instale as dependências:
+
+#### Para o backend:
+
+```
+cd backend
+npm install
+```
+
+#### Para o frontend:
+
+```
+cd frontend
+npm install
+```
+
+### 3. Rode a aplicação:
+
+#### Inicie o servidor backend:
+
+```
+cd backend
+node src/app.js
+```
+
+#### Inicie a aplicação frontend:
+
+```
+cd frontend
+npm run dev
+```
+
+### 4. Acesse o projeto:
+
+Depois de rodar ambos os servidores, a aplicação estará disponível em `http://localhost:3000`.
+
+## Melhorias Futuras
+
+- Implementar traduções para múltiplos idiomas.
+- Finalizar a implementação das funcionalidades de gerenciamento de conta de usuário.
+- Permitir que os usuários salvem suas estantes e visualizem o histórico de suas seleções.
+
+## Feedback e Contribuições
+
+Estou aberta a feedbacks e sugestões! Fique à vontade para abrir issues ou enviar pull requests caso queira contribuir com o projeto.
+
+## Copyright
+
+Copyright (c) 2025 Sophia Silva. Todos os direitos reservados.
+
+<br><br><br>
 
 ## English Version
 
@@ -99,91 +190,3 @@ I am open to feedback and suggestions! Feel free to open issues or submit pull r
 Copyright (c) 2025 Sophia Silva. All rights reserved.
 
 
-## Versão em Português
-
-Bookshelffle é uma aplicação web que ajuda os usuários a selecionar aleatoriamente livros de sua lista de leitura ou da coleção completa disponível via a API do Google Books, facilitando a escolha da próxima leitura.
-
-## Status
-Este projeto está em desenvolvimento.
-
-## Funcionalidades
-
-- Selecionar aleatoriamente um livro da sua estante pessoal e/ou da coleção global do Google Books.
-- Criação e gerenciamento de conta de usuário (em breve).
-- Adicionar livros à sua estante virtual (em breve).
-- Salvar e visualizar o histórico dos resultados de seleção de livros (em breve).
-
-## Tecnologias Utilizadas
-
-- **Frontend**: React.js
-- **Backend**: Node.js
-- **API**: Google Books API
-
-## Idiomas
-
-O site está disponível atualmente em inglês, com planos de implementar traduções adicionais no futuro.
-
-## Demo
-
-A interface do BookShelffle está disponível para visualização no Vercel. Atualmente, a funcionalidade de seleção de livros da coleção global do Google Books está implementada, mas o servidor ainda não foi configurado para suportar as operações completas.
-
-[Demo do BookShelffle](https://bookshelffle.vercel.app/)
-
-## Como Rodar Localmente
-
-Para rodar esse projeto localmente, siga os seguintes passos:
-
-### 1. Clone o repositório:
-```
-git clone https://github.com/sophialaurans/bookshelffle.git
-```
-
-### 2. Instale as dependências:
-
-#### Para o backend:
-
-```
-cd backend
-npm install
-```
-
-#### Para o frontend:
-
-```
-cd frontend
-npm install
-```
-
-### 3. Rode a aplicação:
-
-#### Inicie o servidor backend:
-
-```
-cd backend
-node src/app.js
-```
-
-#### Inicie a aplicação frontend:
-
-```
-cd frontend
-npm run dev
-```
-
-### 4. Acesse o projeto:
-
-Depois de rodar ambos os servidores, a aplicação estará disponível em `http://localhost:3000`.
-
-## Melhorias Futuras
-
-- Implementar traduções para múltiplos idiomas.
-- Finalizar a implementação das funcionalidades de gerenciamento de conta de usuário.
-- Permitir que os usuários salvem suas estantes e visualizem o histórico de suas seleções.
-
-## Feedback e Contribuições
-
-Estou aberta a feedbacks e sugestões! Fique à vontade para abrir issues ou enviar pull requests caso queira contribuir com o projeto.
-
-## Copyright
-
-Copyright (c) 2025 Sophia Silva. Todos os direitos reservados.
