@@ -617,7 +617,7 @@ export default function Home() {
                   <div className="last-sec-cards-marker"
                     style={{backgroundImage: "url('/marker2.png')"}}
                   >Contact</div>
-                  <p className="last-sec-cards mt-[1vh]">If you have any suggestions or want to report a problem, feel free to send me an email at <a href="mailto:bookshellfle@gmail.com" className="text-[#396d94]"> bookshellfle@gmail.com</a>.</p>
+                  <p className="last-sec-cards mt-[1vh]">If you have any suggestions or want to report a problem, feel free to send me an email at <a href="mailto:bookshellfle@gmail.com" className="text-[#396d94]"> bookshellfle@gmail.com</a>. You can also connect with me on <Link href="https://www.linkedin.com/in/sophialaurans/" target="_blank" className="text-[#396d94]">LinkedIn</Link> or follow me on <Link href="https://github.com/sophialaurans" target="_blank" className="text-[#396d94]">GitHub</Link>!</p>
                 </div>
               </div>
               <div className="relative">
